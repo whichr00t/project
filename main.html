@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Options Menu</title>
+    <title>Password Strength Checker</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -17,73 +17,88 @@
             height: 100vh;
         }
         .container {
-            background: #fff;
+            background: #ffffff;
             color: #333;
             border-radius: 10px;
-            padding: 20px;
+            padding: 20px 30px;
             box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
             max-width: 400px;
             width: 100%;
         }
-        .option {
-            display: flex;
-            align-items: center;
-            padding: 15px;
-            margin: 10px 0;
+        .container h1 {
+            text-align: center;
+            color: #2575fc;
+            margin-bottom: 20px;
+        }
+        input[type="password"] {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
             border: 1px solid #ddd;
             border-radius: 5px;
-            background-color: #f9f9f9;
-            cursor: pointer;
-            transition: transform 0.2s, background-color 0.2s;
+            font-size: 16px;
         }
-        .option:hover {
+        button {
             background-color: #2575fc;
             color: #fff;
-            transform: translateY(-2px);
+            border: none;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
         }
-        .option img {
-            width: 40px;
-            height: 40px;
-            margin-right: 15px;
+        button:hover {
+            background-color: #6a11cb;
         }
-        .option-name {
-            font-size: 18px;
-            font-weight: bold;
+        #feedback {
+            margin-top: 15px;
+            font-size: 14px;
+        }
+        .strong {
+            color: #28a745;
+        }
+        .weak {
+            color: #dc3545;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="option" onclick="navigateTo('index.html')">
-            <img src="https://via.placeholder.com/40" alt="Option 1 Logo">
-            <span class="option-name">Option 1</span>
-        </div>
-        <div class="option" onclick="navigateTo('page2.html')">
-            <img src="https://via.placeholder.com/40" alt="Option 2 Logo">
-            <span class="option-name">Option 2</span>
-        </div>
-        <div class="option" onclick="navigateTo('page3.html')">
-            <img src="https://via.placeholder.com/40" alt="Option 3 Logo">
-            <span class="option-name">Option 3</span>
-        </div>
-        <div class="option" onclick="navigateTo('page4.html')">
-            <img src="https://via.placeholder.com/40" alt="Option 4 Logo">
-            <span class="option-name">Option 4</span>
-        </div>
-        <div class="option" onclick="navigateTo('page5.html')">
-            <img src="https://via.placeholder.com/40" alt="Option 5 Logo">
-            <span class="option-name">Option 5</span>
-        </div>
-        <div class="option" onclick="navigateTo('page6.html')">
-            <img src="https://via.placeholder.com/40" alt="Option 6 Logo">
-            <span class="option-name">Option 6</span>
-        </div>
+        <h1>Password Checker</h1>
+        <form id="passwordForm">
+            <input type="password" id="password" placeholder="Enter your password" required>
+            <button type="submit">Check Password</button>
+        </form>
+        <div id="feedback"></div>
     </div>
 
     <script>
-        function navigateTo(page) {
-            window.location.href = page;
-        }
+        document.getElementById("passwordForm").addEventListener("submit", async function (e) {
+            e.preventDefault();
+            const password = document.getElementById("password").value;
+            const feedback = document.getElementById("feedback");
+
+            try {
+                const response = await fetch("http://127.0.0.1:5000/check_password", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ password }),
+                });
+
+                const data = await response.json();
+                if (data.success) {
+                    feedback.textContent = data.message;
+                    feedback.className = "strong";
+                } else {
+                    feedback.innerHTML = "Password is not strong:<br>" + data.issues.join("<br>");
+                    feedback.className = "weak";
+                }
+            } catch (error) {
+                feedback.textContent = "Error connecting to the server. Please try again later.";
+                feedback.className = "weak";
+            }
+        });
     </script>
 </body>
 </html>
