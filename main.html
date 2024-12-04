@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Options Menu</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background: linear-gradient(135deg, #6a11cb, #2575fc);
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        .container {
+            background: #fff;
+            color: #333;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+        }
+        .option {
+            display: flex;
+            align-items: center;
+            padding: 15px;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            background-color: #f9f9f9;
+            cursor: pointer;
+            transition: transform 0.2s, background-color 0.2s;
+        }
+        .option:hover {
+            background-color: #2575fc;
+            color: #fff;
+            transform: translateY(-2px);
+        }
+        .option img {
+            width: 40px;
+            height: 40px;
+            margin-right: 15px;
+        }
+        .option-name {
+            font-size: 18px;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="option" onclick="navigateTo('index.html')">
+            <img src="https://via.placeholder.com/40" alt="Option 1 Logo">
+            <span class="option-name">Option 1</span>
+        </div>
+        <div class="option" onclick="navigateTo('page2.html')">
+            <img src="https://via.placeholder.com/40" alt="Option 2 Logo">
+            <span class="option-name">Option 2</span>
+        </div>
+        <div class="option" onclick="navigateTo('page3.html')">
+            <img src="https://via.placeholder.com/40" alt="Option 3 Logo">
+            <span class="option-name">Option 3</span>
+        </div>
+        <div class="option" onclick="navigateTo('page4.html')">
+            <img src="https://via.placeholder.com/40" alt="Option 4 Logo">
+            <span class="option-name">Option 4</span>
+        </div>
+        <div class="option" onclick="navigateTo('page5.html')">
+            <img src="https://via.placeholder.com/40" alt="Option 5 Logo">
+            <span class="option-name">Option 5</span>
+        </div>
+        <div class="option" onclick="navigateTo('page6.html')">
+            <img src="https://via.placeholder.com/40" alt="Option 6 Logo">
+            <span class="option-name">Option 6</span>
+        </div>
+    </div>
+
+    <script>
+        function navigateTo(page) {
+            window.location.href = page;
+        }
+    </script>
+</body>
+</html>
